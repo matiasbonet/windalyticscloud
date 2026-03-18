@@ -5,16 +5,21 @@ Example:
 Login and request historical measurements for one station.
 """
 import os
+import sys
+
+CURRENT_DIR = os.path.dirname(__file__)
+PROJECT_ROOT = os.path.abspath(os.path.join(CURRENT_DIR, ".."))
+sys.path.insert(0, PROJECT_ROOT)
+
 import json
 from windalytics_client import WindalyticsClient
 
 
 if __name__ == "__main__":
-    BASE_URL = "https://easytrain.oceandrivers.com"
-    EMAIL = "user@example.com" or os.getenv("WINDALYTICS_EMAIL")    
-    PASSWORD = "your_password" or os.getenv("WINDALYTICS_PASSWORD")
-    STATION_ID = "station_001" or os.getenv("WINDALYTICS_STATION_ID")
-
+    BASE_URL = os.getenv("WINDALYTICS_BASE_URL", "https://easytrain.oceandrivers.com")
+    EMAIL = os.getenv("WINDALYTICS_EMAIL", "user@example.com")
+    PASSWORD = os.getenv("WINDALYTICS_PASSWORD", "your_password")
+    STATION_ID = os.getenv("WINDALYTICS_STATION_ID", "b827eb4ff7f4")
     client = WindalyticsClient(base_url=BASE_URL)
 
     client.login(EMAIL, PASSWORD)
