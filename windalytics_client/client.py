@@ -191,7 +191,7 @@ class WindalyticsClient:
 
         print(f"Requesting token from: {url}")
 
-        response = self.session.post(url, json=payload, timeout=timeout, verify=False )
+        response = self.session.post(url, json=payload, timeout=timeout)
 
         if response.status_code != 200:
             raise RuntimeError(
@@ -219,8 +219,7 @@ class WindalyticsClient:
         response = self.session.post(
             url,
             headers=self._get_auth_headers(),
-            timeout=timeout,
-            verify=False 
+            timeout=timeout
         )
 
         if response.status_code == 200:
@@ -561,7 +560,7 @@ class WindalyticsClient:
         print(f"Attempting to login with email: {email}")
         print(f"Requesting token from: {url}")
 
-        response = self.session.post(url, json=payload, timeout=timeout, verify=False )
+        response = self.session.post(url, json=payload, timeout=timeout)
 
         if response.status_code != 200:
             raise RuntimeError(
@@ -589,8 +588,7 @@ class WindalyticsClient:
         response = self.session.post(
             url,
             headers=self._get_auth_headers(),
-            timeout=timeout,
-            verify=False 
+            timeout=timeout
         )
 
         if response.status_code == 200:
@@ -613,8 +611,7 @@ class WindalyticsClient:
         response = self.session.get(
             url,
             headers=self._get_auth_headers(),
-            timeout=timeout,
-            verify=False
+            timeout=timeout
         )
 
         response.raise_for_status()
@@ -676,8 +673,7 @@ class WindalyticsClient:
             url,
             headers=self._get_auth_headers(),
             params=params,
-            timeout=timeout,
-            verify=False
+            timeout=timeout
         )
 
         response.raise_for_status()
