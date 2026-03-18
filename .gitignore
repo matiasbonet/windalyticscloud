@@ -1,0 +1,37 @@
+# Ignore Python bytecode files
+__pycache__/
+*.pyc
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+# Ignore data files (if you have any)
+data/
+# Ignore log files
+logs/
+# Ignore any other files you don't want to track
+*.log
+*.csv
+*.xlsx
+*.json
+# Ignore the .env file if you have one for environment variables
+.env
+# Ignore the .vscode directory if you use Visual Studio Code
+.vscode/
+# Ignore the .idea directory if you use PyCharm
+.idea/
+# Ignore the .DS_Store file on macOS
+.DS_Store
+# Ignore the .pytest_cache directory if you use pytest
+.pytest_cache/
+# Ignore video files
+*.mp4
+*.avi
+*.mov
+# Ignore audio files
+*.mp3
+*.wav
+*.ogg
+
+
+# Ignore the virtual environment directory
+venv_windalytics/
+activate.ps1
