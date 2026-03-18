@@ -21,9 +21,54 @@ from windalytics_client import WindalyticsClient
 def handle_stream_data(payload):
     """
     Custom callback for incoming real-time data.
+
+    --- NEW REAL-TIME DATA RECEIVED ---
+    {
+    "data": {
+        "unit_mac": "b827ebd02144",
+        "data": {
+            "data": {
+                "mean_data": 
+                    "{\"time\": 1773834775.22654, \"latitude\": 0.0, \"longitude\": 0.0, \"COG\": 0.0, \"SOG\": 0.0, \"pressure\": 1004.4, \"temperature\": 21.3, \"AWS\": 1.0, \"AWA\": 90.9, \"AWAR\": 0.0, \"heading\": 247.4, \"heading_true\": 247.9, \"pitch\": -4.2, \"rol\": -1.1, \"TWA\": -112.60000000000002, \"TWD\": 0, \"TWS\": 0.0, \"wind_u\": 0.0, \"wind_v\": 0.0}"
+                ,
+                "raw_data": {
+                    "heading": 247.4,
+                    "pressure": 1004.4,
+                    "airtemperature": "21.3",
+                    "pitch": -4.2,
+                    "rol": -1.1,
+                    "windappangle": 90.9,
+                    "windappspeed": 1.0,
+                    "heading_true": 247.9
+                }
+            }
+        },
+        "station_name": "EWP074",
+        "station_id": "b827ebd02144",
+        "station_code": "EWP074",
+        "station_timezone": 0.0
+    }
+    }
+
     """
     print("\n--- NEW REAL-TIME DATA RECEIVED ---")
-    print(json.dumps(payload, indent=2, ensure_ascii=False))
+    #print(json.dumps(payload, indent=2, ensure_ascii=False))
+
+    station_name = payload["data"]["station_name"]
+    station_code = payload["data"]["station_code"]
+    
+    data = payload["data"]["data"]["data"]
+    mean_data = json.loads(data["mean_data"])
+    raw_data = data["raw_data"]
+
+    print("----- REAL-TIME DATA RECEIVED -----")
+    print(f"Station: {station_name} (CODE: {station_code})") 
+    print(f"Mean AWS: {mean_data['AWS']}, Mean AWA: {mean_data['AWA']} ")
+    print(f"Raw AWS: {raw_data['windappspeed']} , Raw AWA: {raw_data['windappangle']} ")
+    print("----------------------------------")
+    
+
+
 
 
 if __name__ == "__main__":

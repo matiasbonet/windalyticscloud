@@ -28,4 +28,4 @@ if __name__ == "__main__":
 
     print("\n--- AVAILABLE STATIONS ---")
     for station in stations:
-        print(f"- {station['alias']} (ID: {station['station_code']})")
+        print(f"- {station['alias']} (CODE: {station['station_code']} ID: {station['station_id']})")

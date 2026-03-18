@@ -18,7 +18,6 @@ from typing import Any, Callable, Optional
 
 import requests
 import socketio
-import urllib3
 
 
 class WindalyticsClient:
@@ -43,44 +42,34 @@ class WindalyticsClient:
     log_level : str
         Logging level: DEBUG, INFO, WARNING, ERROR
     """
+
     def __init__(
         self,
         base_url: str,
         token: Optional[str] = None,
         mac: Optional[str] = None,
         log_level: str = "INFO",
-        verify_ssl: bool = True,
     ) -> None:
         self.base_url = base_url.rstrip("/")
         self.api_base_url = f"{self.base_url}/api"
         self.token = token
         self.mac = mac
-        self.verify_ssl = verify_ssl
 
         logging.basicConfig(
             level=getattr(logging, log_level.upper(), logging.INFO),
             format="%(asctime)s | %(levelname)s | %(message)s",
         )
+        self.logger = logging.getLogger(self.__class__.__name__)
 
+        # requests session for REST API calls
         self.session = requests.Session()
-        self.session.verify = verify_ssl
 
-        if verify_ssl is False:
-            urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-
+        # Socket.IO client for real-time streaming
         self.sio = socketio.Client(
-            http_session=self.session,
-            ssl_verify=verify_ssl,
-            websocket_extra_options={
-                "sslopt": {
-                    "cert_reqs": ssl.CERT_REQUIRED if verify_ssl else ssl.CERT_NONE,
-                    "check_hostname": verify_ssl,
-                }
-            },
             logger=False,
             engineio_logger=False,
             reconnection=True,
-            reconnection_attempts=0,
+            reconnection_attempts=0,   # infinite retries
             reconnection_delay=2,
             reconnection_delay_max=15,
         )
